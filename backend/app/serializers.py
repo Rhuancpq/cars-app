@@ -6,4 +6,5 @@ from app.models import Car
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
-        fields = ("id", "nome", "marca", "modelo", "foto")
+        fields = ("id", "nome", "marca", "modelo", "foto", "valor")
+        required_fields = ("nome", "marca", "modelo", "foto", "valor")
