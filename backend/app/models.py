@@ -1,6 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
+from django.core.validators import validate_unicode_slug
+from django.contrib.auth.models import UserManager
 
-# Create your models here.
+
+class Admin(AbstractBaseUser):
+    nickname = models.CharField(
+        max_length=256,
+        validators=[validate_unicode_slug],
+        primary_key=True,
+    )
+    objects = UserManager()
+
+    USERNAME_FIELD = "nickname"
+    REQUIRED_FIELDS = ["password"]
 
 
 class Car(models.Model):
