@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Grid } from "@mui/material";
 import CarCard from "../components/CarCard";
 import Header from "../components/Header";
 import Car from "../types/car";
+import axios from "axios";
 
 function Home() {
   const [carList, setCarList] = useState<Car[]>([]);
+
+  useEffect(() => {
+    async function fetchCars() {
+      const { data } = await axios.get("http://localhost:8000/app/cars/");
+      setCarList(data);
+    }
+    fetchCars();
+  }, []);
 
   return (
     <>
