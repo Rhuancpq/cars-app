@@ -1,6 +1,18 @@
 version: "3.3"
 
 services:
+  front:
+    container_name: cars-frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    tty: true
+    stdin_open: true
   db:
     image: postgres:11-alpine
     container_name: db
