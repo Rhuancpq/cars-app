@@ -1,24 +1,24 @@
 .app-header {
-    background-color: #3374db;
-    height: 64px;
-    width: calc(100% - 48px);
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 24px;
+  background-color: #3374db;
+  height: 64px;
+  width: calc(100% - 48px);
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
 }
 
 .app-title {
-    color: #fff;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 64px;
-    margin: 0;
-    text-transform: uppercase;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 64px;
+  margin: 0;
+  text-transform: uppercase;
 }
 
 .login-button {
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
 }
