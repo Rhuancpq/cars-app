@@ -3,10 +3,12 @@ import { Button, Paper, TextField } from "@mui/material";
 import axios from "axios";
 import "./LoginForm.css";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -18,6 +20,7 @@ function LoginForm() {
       Cookies.set("refresh_token", data.refresh);
       setUsername("");
       setPassword("");
+      navigate("/admin");
     } catch (error) {
       console.log(error);
     }

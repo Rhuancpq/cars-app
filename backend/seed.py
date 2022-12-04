@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api.settings")
 django.setup()
-from app.models import Admin
+from app.models import Admin, Car
 
 
 def seed():
@@ -15,6 +15,17 @@ def seed():
     admin.is_active = True
     admin.save()
     print(Admin.objects.all().count())
+
+    if Car.objects.all().count() == 0:
+        for i in range(1, 11):
+            car = Car(
+                nome="Car " + str(i),
+                valor=1000 * i,
+                foto="https://picsum.photos/200/300",
+                marca="Brand " + str(i),
+                modelo="Model " + str(i),
+            )
+            car.save()
 
 
 seed()
