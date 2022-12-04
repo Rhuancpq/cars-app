@@ -7,14 +7,16 @@ import {
   Button,
   TextField,
 } from "@mui/material";
+import Car from "../types/car";
 
 interface CarModalProps {
   open: boolean;
   handleClose: () => void;
   handleSubmit: (car: any) => void;
+  editCar?: Car;
 }
 
-function CarModal({ open, handleClose, handleSubmit }: CarModalProps) {
+function CarModal({ open, handleClose, handleSubmit, editCar }: CarModalProps) {
   const [nome, setNome] = useState("");
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
@@ -28,6 +30,15 @@ function CarModal({ open, handleClose, handleSubmit }: CarModalProps) {
       setValor(0.0);
     }
   }, [open]);
+
+  useEffect(() => {
+    if (editCar) {
+      setNome(editCar.nome);
+      setMarca(editCar.marca);
+      setModelo(editCar.modelo);
+      setValor(editCar.valor);
+    }
+  }, [editCar]);
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -64,7 +75,11 @@ function CarModal({ open, handleClose, handleSubmit }: CarModalProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancelar</Button>
-        <Button onClick={() => handleSubmit({ nome, marca, modelo, valor })}>
+        <Button
+          onClick={() =>
+            handleSubmit({ ...editCar, nome, marca, modelo, valor })
+          }
+        >
           Adicionar
         </Button>
       </DialogActions>

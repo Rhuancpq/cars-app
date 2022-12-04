@@ -1,13 +1,15 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { Container, Button } from "@mui/material";
 import CarModal from "../components/CarModal";
 import CarTable from "../components/CarTable";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Car from "../types/car";
 
 function Admin() {
-  const [open, setOpen] = React.useState(false);
-  const [cars, setCars] = React.useState([]);
+  const [open, setOpen] = useState(false);
+  const [cars, setCars] = useState([]);
+  const [editCar, setEditCar] = useState<Car>();
 
   const handleOpen = () => {
     setOpen(true);
@@ -45,10 +47,10 @@ function Admin() {
 
   const handleEdit = useCallback(
     async (id: number) => {
-      try {
-        // TODO
-      } catch (error) {
-        console.log(error);
+      const car = cars.find((car: any) => car.id === id);
+      if (car) {
+        setEditCar(car);
+        handleOpen();
       }
     },
     [cars]
@@ -57,18 +59,26 @@ function Admin() {
   const handleSubmit = async (car: any) => {
     try {
       const accessToken = Cookies.get("access_token");
-      await axios.post(
-        "http://localhost:8000/app/cars/",
-        {
-          ...car,
-          foto: "none",
-        },
-        {
+      if (car.id) {
+        await axios.put(`http://localhost:8000/app/cars/${car.id}/`, car, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
-      );
+        });
+      } else {
+        await axios.post(
+          "http://localhost:8000/app/cars/",
+          {
+            ...car,
+            foto: "none",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+      }
       handleClose();
       fetchCars();
     } catch (error) {
@@ -99,6 +109,7 @@ function Admin() {
         open={open}
         handleClose={handleClose}
         handleSubmit={handleSubmit}
+        editCar={editCar}
       />
     </Container>
   );
