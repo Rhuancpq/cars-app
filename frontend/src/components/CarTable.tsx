@@ -50,7 +50,11 @@ function CarTable({ carList, handleEdit, handleDelete }: CarTableProps) {
 
   return (
     <div style={{ height: "100%", width: "700px" }}>
-      <DataGrid rows={carList} columns={columns} pageSize={10} />
+      <DataGrid
+        rows={carList}
+        columns={columns}
+        pageSize={Math.round((window.innerHeight * 0.8) / 52) - 2}
+      />
     </div>
   );
 }

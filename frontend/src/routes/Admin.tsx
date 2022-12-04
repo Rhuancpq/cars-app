@@ -5,6 +5,7 @@ import CarTable from "../components/CarTable";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Car from "../types/car";
+import Header from "../components/Header";
 
 function Admin() {
   const [open, setOpen] = useState(false);
@@ -91,27 +92,30 @@ function Admin() {
   }, [fetchCars]);
 
   return (
-    <Container maxWidth="lg" sx={{ height: "80vh", marginTop: "32px" }}>
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{ marginBottom: "16px" }}
-        onClick={handleOpen}
-      >
-        Adicionar
-      </Button>
-      <CarTable
-        carList={cars}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-      />
-      <CarModal
-        open={open}
-        handleClose={handleClose}
-        handleSubmit={handleSubmit}
-        editCar={editCar}
-      />
-    </Container>
+    <>
+      <Header />
+      <Container maxWidth="lg" sx={{ height: "80vh", marginTop: "32px" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ marginBottom: "16px" }}
+          onClick={handleOpen}
+        >
+          Adicionar
+        </Button>
+        <CarTable
+          carList={cars}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+        />
+        <CarModal
+          open={open}
+          handleClose={handleClose}
+          handleSubmit={handleSubmit}
+          editCar={editCar}
+        />
+      </Container>
+    </>
   );
 }
 
