@@ -17,7 +17,7 @@ function Header() {
   const handleLogout = () => {
     Cookies.remove("access_token");
     Cookies.remove("refresh_token");
-    navigate("/home");
+    navigate("/");
   };
 
   return (

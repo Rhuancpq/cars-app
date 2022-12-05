@@ -7,6 +7,19 @@ import Cookies from "js-cookie";
 import Car from "../types/car";
 import Header from "../components/Header";
 
+async function convertBase64(foto: File) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(foto);
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+}
+
 function Admin() {
   const [open, setOpen] = useState(false);
   const [cars, setCars] = useState([]);
@@ -60,6 +73,12 @@ function Admin() {
   const handleSubmit = async (car: any) => {
     try {
       const accessToken = Cookies.get("access_token");
+      // check if car.foto is a string or a file
+      if (typeof car.foto !== "string") {
+        // convert file to base64
+        const base64 = await convertBase64(car.foto);
+        car.foto = base64;
+      }
       if (car.id) {
         await axios.put(`http://localhost:8000/app/cars/${car.id}/`, car, {
           headers: {
@@ -71,7 +90,6 @@ function Admin() {
           "http://localhost:8000/app/cars/",
           {
             ...car,
-            foto: "none",
           },
           {
             headers: {

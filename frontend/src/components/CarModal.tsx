@@ -8,6 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 import Car from "../types/car";
+import { Box } from "@mui/system";
 
 interface CarModalProps {
   open: boolean;
@@ -21,6 +22,7 @@ function CarModal({ open, handleClose, handleSubmit, editCar }: CarModalProps) {
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
   const [valor, setValor] = useState<number>(0.0);
+  const [foto, setFoto] = useState<File>();
 
   useEffect(() => {
     if (!open) {
@@ -28,6 +30,7 @@ function CarModal({ open, handleClose, handleSubmit, editCar }: CarModalProps) {
       setMarca("");
       setModelo("");
       setValor(0.0);
+      setFoto(undefined);
     }
   }, [open]);
 
@@ -72,12 +75,42 @@ function CarModal({ open, handleClose, handleSubmit, editCar }: CarModalProps) {
           value={valor}
           onChange={(e) => setValor(Number(e.target.value))}
         />
+
+        <label htmlFor="button-file">
+          <input
+            accept="image/*"
+            style={{ display: "none" }}
+            id="button-file"
+            type="file"
+            onChange={(e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                setFoto(e.target.files[0]);
+              }
+            }}
+          />
+          <Box
+            sx={{
+              display: "inline-flex",
+              alignItems: "center",
+              marginTop: "16px",
+            }}
+          >
+            <Button
+              component="span"
+              variant="contained"
+              sx={{ margin: "0 16px" }}
+            >
+              Upload
+            </Button>
+            {foto && <p style={{ margin: 0 }}>{foto.name}</p>}
+          </Box>
+        </label>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancelar</Button>
         <Button
           onClick={() =>
-            handleSubmit({ ...editCar, nome, marca, modelo, valor })
+            handleSubmit({ foto, ...editCar, nome, marca, modelo, valor })
           }
         >
           Adicionar

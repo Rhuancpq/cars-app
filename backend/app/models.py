@@ -21,7 +21,7 @@ class Car(models.Model):
     nome = models.CharField(max_length=100)
     marca = models.CharField(max_length=100)
     modelo = models.CharField(max_length=100)
-    foto = models.CharField(max_length=100)
+    foto = models.TextField()
     valor = models.DecimalField(max_digits=15, decimal_places=2)
 
     def __str__(self):

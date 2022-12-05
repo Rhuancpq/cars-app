@@ -10,8 +10,16 @@ function Home() {
 
   useEffect(() => {
     async function fetchCars() {
-      const { data } = await axios.get("http://localhost:8000/app/cars/");
-      setCarList(data);
+      try {
+        const { data } = await axios.get("http://localhost:8000/app/cars/", {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        if (typeof data === "object") setCarList(data);
+      } catch (error) {
+        console.log(error);
+      }
     }
     fetchCars();
   }, []);
