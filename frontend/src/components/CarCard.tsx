@@ -14,16 +14,11 @@ interface CarCardProps {
   foto: string;
 }
 
-function CarCard({ nome, marca, modelo, valor }: CarCardProps) {
+function CarCard({ nome, marca, modelo, valor, foto }: CarCardProps) {
   return (
     <Card sx={{ width: "100%" }}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="200"
-          image="https://www.shoppingdopapel.com.br/images/products/empty.png"
-          alt="car image"
-        />
+        <CardMedia component="img" height="200" src={foto} alt="car image" />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
             {nome}

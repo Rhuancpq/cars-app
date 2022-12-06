@@ -7,6 +7,9 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api.settings")
 django.setup()
 from app.models import Admin, Car
 
+# car photo
+default_photo = "https://wallpaperaccess.com/full/5379.jpg"
+
 
 def seed():
     Admin.objects.all().delete()
@@ -21,7 +24,7 @@ def seed():
             car = Car(
                 nome="Car " + str(i),
                 valor=1000 * i,
-                foto="https://picsum.photos/200/300",
+                foto=default_photo,
                 marca="Brand " + str(i),
                 modelo="Model " + str(i),
             )
